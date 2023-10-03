@@ -5,6 +5,7 @@ import Review from "./components/Review";
 import SearchBar from "./components/SearchBar";
 import './styles/Home.css';
 import  './styles/NavBar.css';
+import './styles/Review.css'
 function App() {
   return (
     <div>

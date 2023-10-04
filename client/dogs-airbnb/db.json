@@ -1,0 +1,36 @@
+{
+    "users": [
+      {
+        "id": 1,
+        "name": "John Doe",
+        "email": "john@example.com"
+      },
+      {
+        "id": 2,
+        "name": "Jane Smith",
+        "email": "jane@example.com"
+      }
+    ],
+    "reviews": [
+      {
+        "id": 1,
+        "userId": 1,
+        "rating": 4,
+        "comment": "Great product!"
+      },
+      {
+        "id": 2,
+        "userId": 2,
+        "rating": 5,
+        "comment": "Excellent service!"
+      }
+    ],
+    "dogCard": {
+      "name": "Buddy",
+      "breed": "Labrador Retriever",
+      "age": 3,
+      "color": "Yellow",
+      "image": "https://example.com/buddy.jpg"
+    }
+  }
+  

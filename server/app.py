@@ -11,7 +11,8 @@ app = Flask(__name__)
 app.secret_key = 'your_secret_key'
 
 # Configure your database settings
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://project_dogs_user:itFF0liDswpKOxScrk4Se6uexsm2ouN1@dpg-cke0njsiibqc73c1aqdg-a.oregon-postgres.render.com/project_dogs'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://project_dogs_user:itFF0liDswpKOxScrk4Se6uexsm2ouN1@dpg-cke0njsiibqc73c1postgres.render.comaqdg-a.oregon-/project_dogs'
+#postgres://project_dogs_user:itFF0liDswpKOxScrk4Se6uexsm2ouN1@dpg-cke0njsiibqc73c1aqdg-a.oregon-postgres.render.com/project_dogs
 db.init_app(app)  # Initialize SQLAlchemy extension after setting the URI
 
 # Configure Cloudinary
@@ -45,7 +46,26 @@ def login():
 def logout():
     # Implement user logout
     return "Logout page"
+@app.route('/doghouses/filter')
+def doghouse_filter():
+    # Query the dog houses from the database, ordered by average_rating in descending order
+    dog_houses = DogHouse.query.order_by(DogHouse.average_rating.desc()).all()
+    
+    # Create a list to store dog house data
+    dog_house_list = []
+    
+    # Loop through the sorted dog houses and add them to the list
+    for dog_house in dog_houses:
+        dog_house_data = {
+            'id': dog_house.id,
+            'name': dog_house.name,
+            'address': dog_house.address,
+            'average_rating': dog_house.average_rating
+        }
+        dog_house_list.append(dog_house_data)
 
+    # Return a JSON response with the sorted dog houses
+    return jsonify({'dog_houses': dog_house_list})
 @app.route('/doghouses')
 def doghouses():
     dog_houses = DogHouse.query.all()
@@ -112,10 +132,7 @@ def doghouse_search():
     # Implement searching dog houses by distance
     return "Search dog houses by distance"
 
-@app.route('/doghouses/filter')
-def doghouse_filter():
-    # Implement filtering dog houses by rating
-    return "Filter dog houses by rating"
+
 
 if __name__ == '__main__':
     app.run(debug=True)

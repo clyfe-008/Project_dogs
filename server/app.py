@@ -1,7 +1,7 @@
-from flask import Flask, render_template, request, redirect, url_for, flash,jsonify
+from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
-from model import db, User, DogHouse, Review  
+from model import db, User, DogHouse, Review
 import cloudinary
 from cloudinary.uploader import upload
 from cloudinary.utils import cloudinary_url
@@ -11,9 +11,8 @@ app = Flask(__name__)
 app.secret_key = 'your_secret_key'
 
 # Configure your database settings
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("Database_URL")
-#postgres://project_dogs_user:itFF0liDswpKOxScrk4Se6uexsm2ouN1@dpg-cke0njsiibqc73c1aqdg-a.oregon-postgres.render.com/project_dogs
-db.init_app(app)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://project_dogs_user:itFF0liDswpKOxScrk4Se6uexsm2ouN1@dpg-cke0njsiibqc73c1aqdg-a.oregon-postgres.render.com/project_dogs'
+db.init_app(app)  # Initialize SQLAlchemy extension after setting the URI
 
 # Configure Cloudinary
 cloudinary.config(
@@ -26,7 +25,6 @@ cloudinary.config(
 login_manager = LoginManager()
 login_manager.login_view = 'login'
 login_manager.init_app(app)
-
 
 # Flask routes:
 
@@ -65,6 +63,7 @@ def doghouses():
     
    
     return jsonify({'dog_houses': dog_house_list})
+
 @app.route('/doghouses/<int:id>')
 def doghouse_details(id):
    

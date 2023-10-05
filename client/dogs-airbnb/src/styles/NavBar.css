@@ -6,20 +6,58 @@
     color: #fff;
     padding: 20px;
     margin-top: 0%;
-  }
+    z-index: 0;
+}
 
 .icon {
-    width: 40px; 
+    width: 40px;
     height: 40px;
 }
 
 .user-icon {
-    width: 30px; 
+    width: 30px;
     height: 30px;
     margin-left: auto;
 }
 
 .login-prompt {
-    margin-left: 8px; 
+    margin-left: 8px;
     cursor: pointer;
+}
+
+
+.sidebar {
+    width: 200px;
+    height: 80vh;
+    background-color: #060b26;
+    position: fixed;
+    top: 10;
+    left: 0;
+    padding: 20px;
+    z-index: 1;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar li {
+    margin-bottom: 10px;
+    color: white;
+}
+.icon{
+    cursor: pointer;
+    position: relative;
+}
+
+.overlay {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: transparent;
+    z-index: 2;
 }

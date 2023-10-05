@@ -1,25 +1,38 @@
 from app import app, db
 from model import User, DogHouse, Review
+from faker import Faker
+import random
+
+fake = Faker()
 
 def seed_database():
     with app.app_context():
-        # Create the database schema
+        
         db.create_all()
 
         # Create and commit users
-        user1 = User(username='user1', email='user1@example.com', password='password1')
-        user2 = User(username='user2', email='user2@example.com', password='password2')
+        users = []
+        for _ in range(10):
+            username = fake.user_name()
+            email = fake.email()
+            password = fake.password()
+            user = User(username=username, email=email, password=password)
+            users.append(user)
 
-        db.session.add(user1)
-        db.session.add(user2)
+        db.session.add_all(users)
         db.session.commit()
 
-        # Create and commit dog houses
-        doghouse1 = DogHouse(name='Dog House 1', address='123 Main St', average_rating=4.5, user_id=user1.id)
-        doghouse2 = DogHouse(name='Dog House 2', address='456 Elm St', average_rating=3.8, user_id=user2.id)
+        # Create and commit dog houses with random ratings
+        dog_houses = []
+        for _ in range(10):
+            name = fake.company()
+            address = fake.address()
+            average_rating = round(random.uniform(3.0, 5.0), 1)
+            user_id = random.choice(users).id
+            dog_house = DogHouse(name=name, address=address, average_rating=average_rating, user_id=user_id)
+            dog_houses.append(dog_house)
 
-        db.session.add(doghouse1)
-        db.session.add(doghouse2)
+        db.session.add_all(dog_houses)
         db.session.commit()
 
 if __name__ == '__main__':

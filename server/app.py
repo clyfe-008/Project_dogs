@@ -1,7 +1,7 @@
-from flask import Flask, render_template, request, redirect, url_for, flash,jsonify
+from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
-from model import db, User, DogHouse, Review  
+from model import db, User, DogHouse, Review
 import cloudinary
 from cloudinary.uploader import upload
 from cloudinary.utils import cloudinary_url
@@ -11,9 +11,9 @@ app = Flask(__name__)
 app.secret_key = 'your_secret_key'
 
 # Configure your database settings
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("Database_URL")
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://project_dogs_user:itFF0liDswpKOxScrk4Se6uexsm2ouN1@dpg-cke0njsiibqc73c1aqdg-a.oregon-postgres.render.com/project_dogs'
 #postgres://project_dogs_user:itFF0liDswpKOxScrk4Se6uexsm2ouN1@dpg-cke0njsiibqc73c1aqdg-a.oregon-postgres.render.com/project_dogs
-db.init_app(app)
+db.init_app(app)  # Initialize SQLAlchemy extension after setting the URI
 
 # Configure Cloudinary
 cloudinary.config(
@@ -26,7 +26,6 @@ cloudinary.config(
 login_manager = LoginManager()
 login_manager.login_view = 'login'
 login_manager.init_app(app)
-
 
 # Flask routes:
 
@@ -47,7 +46,26 @@ def login():
 def logout():
     # Implement user logout
     return "Logout page"
+@app.route('/doghouses/filter')
+def doghouse_filter():
+    # Query the dog houses from the database, ordered by average_rating in descending order
+    dog_houses = DogHouse.query.order_by(DogHouse.average_rating.desc()).all()
+    
+    # Create a list to store dog house data
+    dog_house_list = []
+    
+    # Loop through the sorted dog houses and add them to the list
+    for dog_house in dog_houses:
+        dog_house_data = {
+            'id': dog_house.id,
+            'name': dog_house.name,
+            'address': dog_house.address,
+            'average_rating': dog_house.average_rating
+        }
+        dog_house_list.append(dog_house_data)
 
+    # Return a JSON response with the sorted dog houses
+    return jsonify({'dog_houses': dog_house_list})
 @app.route('/doghouses')
 def doghouses():
     dog_houses = DogHouse.query.all()
@@ -65,14 +83,20 @@ def doghouses():
     
    
     return jsonify({'dog_houses': dog_house_list})
+
 @app.route('/doghouses/<int:id>')
 def doghouse_details(id):
-   
     dog_house = DogHouse.query.get(id)
 
     if dog_house is not None:
-        # Display the details of the dog house
-        return render_template('doghouse_details.html', dog_house=dog_house)
+        # Create a string with the details of the dog house
+        dog_house_details = f"Dog House ID: {dog_house.id}<br>"
+        dog_house_details += f"Name: {dog_house.name}<br>"
+        dog_house_details += f"Address: {dog_house.address}<br>"
+        dog_house_details += f"Average Rating: {dog_house.average_rating}<br>"
+
+        # Display the details of the dog house as HTML
+        return dog_house_details
     else:
         # Handle the case where the dog house with the provided id does not exist
         return "Dog House not found"
@@ -86,8 +110,21 @@ def create_review(id):
 @app.route('/reviews/<int:id>/edit', methods=['GET', 'POST'])
 @login_required
 def edit_review(id):
-    # Implement editing a review
-    return f"Edit review {id}"
+    review = Review.query.get(id)
+
+    if review is not None:
+        if request.method == 'POST':
+            # Update the review based on the form data
+            review.content = request.form.get('content')
+            db.session.commit()
+            flash('Review updated successfully', 'success')
+            return redirect(url_for('edit_review', id=id))
+
+        # Render the edit review form with the current review content
+        return render_template('edit_review.html', review=review)
+    else:
+        # Handle the case where the review with the provided id does not exist
+        return "Review not found"
 
 @app.route('/reviews/<int:id>/delete', methods=['POST'])
 @login_required
@@ -113,10 +150,7 @@ def doghouse_search():
     # Implement searching dog houses by distance
     return "Search dog houses by distance"
 
-@app.route('/doghouses/filter')
-def doghouse_filter():
-    # Implement filtering dog houses by rating
-    return "Filter dog houses by rating"
+
 
 if __name__ == '__main__':
     app.run(debug=True)

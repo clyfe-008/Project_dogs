@@ -11,7 +11,7 @@ app = Flask(__name__)
 app.secret_key = 'your_secret_key'
 
 # Configure your database settings
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://project_dogs_user:itFF0liDswpKOxScrk4Se6uexsm2ouN1@dpg-cke0njsiibqc73c1postgres.render.comaqdg-a.oregon-/project_dogs'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://project_dogs_user:itFF0liDswpKOxScrk4Se6uexsm2ouN1@dpg-cke0njsiibqc73c1aqdg-a.oregon-postgres.render.com/project_dogs'
 #postgres://project_dogs_user:itFF0liDswpKOxScrk4Se6uexsm2ouN1@dpg-cke0njsiibqc73c1aqdg-a.oregon-postgres.render.com/project_dogs
 db.init_app(app)  # Initialize SQLAlchemy extension after setting the URI
 

@@ -11,7 +11,7 @@ app = Flask(__name__)
 app.secret_key = 'your_secret_key'
 
 # Configure your database settings
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://project_dogs_user:itFF0liDswpKOxScrk4Se6uexsm2ouN1@dpg-cke0njsiibqc73c1aqdg-a.oregon-postgres.render.com/project_dogs'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://project_dogs_user:itFF0liDswpKOxScrk4Se6uexsm2ouN1@dpg-cke0njsiibqc73c1aqdg-a.oregon-postgres.render.com/project_dogs'
 #postgres://project_dogs_user:itFF0liDswpKOxScrk4Se6uexsm2ouN1@dpg-cke0njsiibqc73c1aqdg-a.oregon-postgres.render.com/project_dogs
 db.init_app(app)  # Initialize SQLAlchemy extension after setting the URI
 
@@ -86,12 +86,17 @@ def doghouses():
 
 @app.route('/doghouses/<int:id>')
 def doghouse_details(id):
-   
     dog_house = DogHouse.query.get(id)
 
     if dog_house is not None:
-        # Display the details of the dog house
-        return render_template('doghouse_details.html', dog_house=dog_house)
+        # Create a string with the details of the dog house
+        dog_house_details = f"Dog House ID: {dog_house.id}<br>"
+        dog_house_details += f"Name: {dog_house.name}<br>"
+        dog_house_details += f"Address: {dog_house.address}<br>"
+        dog_house_details += f"Average Rating: {dog_house.average_rating}<br>"
+
+        # Display the details of the dog house as HTML
+        return dog_house_details
     else:
         # Handle the case where the dog house with the provided id does not exist
         return "Dog House not found"
@@ -105,8 +110,21 @@ def create_review(id):
 @app.route('/reviews/<int:id>/edit', methods=['GET', 'POST'])
 @login_required
 def edit_review(id):
-    # Implement editing a review
-    return f"Edit review {id}"
+    review = Review.query.get(id)
+
+    if review is not None:
+        if request.method == 'POST':
+            # Update the review based on the form data
+            review.content = request.form.get('content')
+            db.session.commit()
+            flash('Review updated successfully', 'success')
+            return redirect(url_for('edit_review', id=id))
+
+        # Render the edit review form with the current review content
+        return render_template('edit_review.html', review=review)
+    else:
+        # Handle the case where the review with the provided id does not exist
+        return "Review not found"
 
 @app.route('/reviews/<int:id>/delete', methods=['POST'])
 @login_required

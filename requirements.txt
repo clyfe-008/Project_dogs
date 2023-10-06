@@ -1,7 +1,7 @@
 
 alembic
 aniso8601
-apturl
+
 attrs
 bcrypt
 blinker

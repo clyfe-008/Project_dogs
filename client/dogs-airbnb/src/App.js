@@ -9,6 +9,7 @@ import Home from "./components/Home";
 import NavBar from "./components/NavBar";
 import Review from "./components/Review";
 import SearchBar from "./components/SearchBar";
+import SignUpForm from "./components/SignUpForm"
 import DogHouse from "./components/DogHouse";
 import Footer from "./components/Footer";
 import LoginForm from "./components/LoginForm";

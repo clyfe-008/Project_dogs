@@ -14,7 +14,7 @@ const Review = () => {
     const fetchReview = async () => {
       try {
         setLoading(true);
-        const response = await fetch(''); //API endpoint
+        const response = await fetch('http://127.0.0.1:5000'); 
         if (!response.ok) {
           throw new Error('Failed to fetch data!');
         }
@@ -43,7 +43,7 @@ const Review = () => {
     // Make an API request to update the review with the edited data
     try {
       setLoading(true);
-      const response = await fetch('', {
+      const response = await fetch('http://127.0.0.1:5000', {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -56,7 +56,7 @@ const Review = () => {
       }
 
       // Fetch the updated review
-      const updatedResponse = await fetch(''); //API endpoint
+      const updatedResponse = await fetch('http://127.0.0.1:5000'); //API endpoint
       if (!updatedResponse.ok) {
         throw new Error('Failed to fetch updated data!');
       }

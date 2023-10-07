@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
+const apiUrl = 'http://127.0.0.1:5000';
 const Review = () => {
   const [dogReview, setDogReview] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -14,7 +15,7 @@ const Review = () => {
     const fetchReview = async () => {
       try {
         setLoading(true);
-        const response = await fetch('http://127.0.0.1:5000'); 
+        const response = await fetch(`${apiUrl}/reviews`); 
         if (!response.ok) {
           throw new Error('Failed to fetch data!');
         }

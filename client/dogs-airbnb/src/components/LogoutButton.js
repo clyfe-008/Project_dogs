@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 function LogoutButton() {
   const handleLogout = async () => {
     try {

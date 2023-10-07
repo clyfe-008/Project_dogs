@@ -1,0 +1,93 @@
+{
+  "dog_houses": [
+    {
+      "id": 1,
+      "name": "Cozy Canine Cottage",
+      "address": "123 Main St",
+      "average_rating": 4.5
+    },
+    {
+      "id": 2,
+      "name": "Paw Palace",
+      "address": "456 Oak St",
+      "average_rating": 3.8
+    },
+    {
+      "id": 3,
+      "name": "Bark Haven",
+      "address": "789 Pine St",
+      "average_rating": 4.2
+    },
+    {
+      "id": 4,
+      "name": "Paw Palace",
+      "address": "456 Oak St",
+      "average_rating": 3.8
+    },
+    {
+      "id": 5,
+      "name": "Paw Palace",
+      "address": "456 Oak St",
+      "average_rating": 3.8
+    },    {
+      "id": 6,
+      "name": "Cozy Canine Cottage",
+      "address": "123 Main St",
+      "average_rating": 4.5
+    },
+    {
+      "id": 7,
+      "name": "Paw Palace",
+      "address": "456 Oak St",
+      "average_rating": 3.8
+    },
+    {
+      "id": 8,
+      "name": "Bark Haven",
+      "address": "789 Pine St",
+      "average_rating": 4.2
+    },
+    {
+      "id": 9,
+      "name": "Paw Palace",
+      "address": "456 Oak St",
+      "average_rating": 3.8
+    },
+    {
+      "id": 10,
+      "name": "Paw Palace",
+      "address": "456 Oak St",
+      "average_rating": 3.8
+    },
+    {
+      "id": 11,
+      "name": "Bark Haven",
+      "address": "789 Pine St",
+      "average_rating": 4.2
+    },
+    {
+      "id": 12,
+      "name": "Paw Palace",
+      "address": "456 Oak St",
+      "average_rating": 3.8
+    },
+    {
+      "id": 13,
+      "name": "Paw Palace",
+      "address": "456 Oak St",
+      "average_rating": 3.8
+    },
+    {
+      "id": 14,
+      "name": "Bark Haven",
+      "address": "789 Pine St",
+      "average_rating": 4.2
+    },
+    {
+      "id": 15,
+      "name": "Cozy Canine Cottage",
+      "address": "123 Main St",
+      "average_rating": 4.5
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+.dog-houses-list {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .dog-house-card {
+    border: 1px solid #cccccc;
+    margin: 10px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    width: 200px;
+  }
+  .dog-houses-title{
+    text-align:center;
+    font-size: 2em
+
+}
+
+  
+
+  

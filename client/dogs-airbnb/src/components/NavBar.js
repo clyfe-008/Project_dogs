@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
+
 const NavBar = () => {
   
   const [isSidebarVisible, setSidebarVisible] = useState(false);
@@ -59,7 +60,9 @@ const NavBar = () => {
         </svg>
         <span className="login-prompt">Login</span>
       </nav>
+      
       <Outlet/>
+      
     </div>
   );
 };

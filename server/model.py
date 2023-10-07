@@ -15,6 +15,8 @@ class DogHouse(db.Model):
     address = db.Column(db.String(255), nullable=False)
     average_rating = db.Column(db.Float)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    image_url = db.Column(db.String(255))  # Add the image_url field here
+
 
 class Review(db.Model):
     id = db.Column(db.Integer, primary_key=True)

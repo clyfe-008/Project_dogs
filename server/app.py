@@ -6,6 +6,7 @@ import cloudinary
 from cloudinary.uploader import upload
 from cloudinary.utils import cloudinary_url
 import os
+from flask_migrate import Migrate
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
@@ -14,6 +15,7 @@ app.secret_key = 'your_secret_key'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://project_dogs_user:itFF0liDswpKOxScrk4Se6uexsm2ouN1@dpg-cke0njsiibqc73c1aqdg-a.oregon-postgres.render.com/project_dogs'
 #postgres://project_dogs_user:itFF0liDswpKOxScrk4Se6uexsm2ouN1@dpg-cke0njsiibqc73c1aqdg-a.oregon-postgres.render.com/project_dogs
 db.init_app(app)  # Initialize SQLAlchemy extension after setting the URI
+migrate = Migrate(app, db)
 
 # Configure Cloudinary
 cloudinary.config(
@@ -60,7 +62,8 @@ def doghouse_filter():
             'id': dog_house.id,
             'name': dog_house.name,
             'address': dog_house.address,
-            'average_rating': dog_house.average_rating
+            'average_rating': dog_house.average_rating,
+            'image_url': dog_house.image_url
         }
         dog_house_list.append(dog_house_data)
 
@@ -76,12 +79,11 @@ def doghouses():
             'id': dog_house.id,
             'name': dog_house.name,
             'address': dog_house.address,
-            'average_rating': dog_house.average_rating
-            
+            'average_rating': dog_house.average_rating,
+            'image_url': dog_house.image_url  # Add the image_url
         }
         dog_house_list.append(dog_house_data)
     
-   
     return jsonify({'dog_houses': dog_house_list})
 
 @app.route('/doghouses/<int:id>')

@@ -42,6 +42,7 @@ const DogHousesList = () => {
       <div className="dog-houses-list">
         {dogHouses.map(dogHouse => (
           <div key={dogHouse.id} className="dog-house-card">
+            <img src={dogHouse.image_url} alt={dogHouse.name} />
             <h2>{dogHouse.name}</h2>
             <p>Address: {dogHouse.address}</p>
             <p>Average Rating: {dogHouse.average_rating}</p>

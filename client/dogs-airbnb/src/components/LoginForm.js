@@ -73,13 +73,16 @@ const styles = {
     textAlign: 'center',
     marginBottom: '20px',
     color: '#333',
+
   },
   form: {
     display: 'flex',
     flexDirection: 'column',
   },
   formGroup: {
+    
     marginBottom: '15px',
+  
   },
   label: {
     marginBottom: '5px',

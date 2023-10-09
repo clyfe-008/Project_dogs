@@ -27,8 +27,10 @@ import './styles/contact.css'
 import './styles/Footer.css'
 
 const App = () => {
+  const [searchTerm, setSearchTerm] = useState('');
+
   const handleSearch = (searchTerm) => {
-    console.log("Search term:", searchTerm);
+    setSearchTerm(searchTerm);
   };
 
   // State to track the login status (true for logged in, false for logged out)
@@ -85,7 +87,7 @@ const App = () => {
         </Routes>
       </Router>
       <SearchBar onSearch={handleSearch} />
-      <DogHousesList/>
+      <DogHousesList searchTerm={searchTerm} />
       <Footer />
     </div>
   );

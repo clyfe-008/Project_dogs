@@ -1,12 +1,19 @@
 import React, { useEffect, useState } from 'react';
 
-const DogHousesList = () => {
+const DogHousesList = ({ searchTerm }) => {
   const [dogHouses, setDogHouses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch('http://localhost:3001/dog_houses')
+    let url = 'http://localhost:3001/dog_houses';
+
+    // Append search query if present
+    if (searchTerm) {
+      url += `?search=${searchTerm}`;
+    }
+
+    fetch(url)
       .then(response => {
         if (!response.ok) {
           throw new Error('Failed to fetch dog houses');
@@ -22,7 +29,7 @@ const DogHousesList = () => {
         setError('Failed to fetch dog houses. Please try again later.');
         setLoading(false);
       });
-  }, []);
+  }, [searchTerm]);
 
   if (loading) {
     return <p>Loading...</p>;
@@ -36,11 +43,16 @@ const DogHousesList = () => {
     return <p>No dog houses available.</p>;
   }
 
+  // Filter dogHouses based on searchTerm
+  const filteredDogHouses = searchTerm
+    ? dogHouses.filter(dogHouse => dogHouse.name.toLowerCase().includes(searchTerm.toLowerCase()))
+    : dogHouses;
+
   return (
     <div>
       <h1 className='dog-houses-title'>Dog Houses</h1>
       <div className="dog-houses-list">
-        {dogHouses.map(dogHouse => (
+        {filteredDogHouses.map(dogHouse => (
           <div key={dogHouse.id} className="dog-house-card">
             <img src={dogHouse.image_url} alt={dogHouse.name} />
             <h2>{dogHouse.name}</h2>
